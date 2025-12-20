@@ -24,10 +24,19 @@
       <div class="container">
         <h1 class="section-title">My Setup</h1>
 
+        <!-- Floating Sidebar -->
+        <nav class="setup-sidebar">
+          <a href="#dotfiles" class="sidebar-link">Dotfiles</a>
+          <a href="#editor" class="sidebar-link">Editor</a>
+          <a href="#shell" class="sidebar-link">Shell</a>
+          <a href="#tmux" class="sidebar-link">tmux</a>
+          <a href="#tool-version-manager" class="sidebar-link">Version Manager</a>
+        </nav>
+
         <div class="setup-content">
           <p>Here's what I use for development and daily work.</p>
 
-          <h2>Dotfiles</h2>
+          <h2 id="dotfiles">Dotfiles</h2>
           <p>
             You can find my configuration files on GitHub:
             <a href="https://github.com/Yaquelqun/dotfiles" target="_blank" rel="noopener noreferrer">
@@ -35,11 +44,11 @@
             </a>
           </p>
 
-          <h2>Editor</h2>
+          <h2 id="editor">Editor</h2>
           <p><a href="https://code.visualstudio.com/">VS Code</a></p>
           <p> All my setting are synchronized through github</p>
           
-          <h2>Shell</h2>
+          <h2 id="shell">Shell</h2>
           <p>Currently working with <a href="https://ghostty.org/">ghostty</a> mainly because i really like the top-down accessible-anywhere quick terminal.
             The config is pretty simple since i mostly use it to host tmux
           </p>
@@ -101,13 +110,13 @@ echo "zsh operational"
             </ul>
           </p>
 
-          <h2>tmux</h2>
+          <h2 id="tmux">tmux</h2>
           <p>the panel/splitting logic of ghostty is kinda subpar + i can't use it in the quick terminal so <a href="https://github.com/tmux/tmux/wiki">tmux</a> allows me to have several terminals
             without too much worry
-            I got the config by mashing together a bunch of online finds so it's still very much a WIP
+            I got the <a href="https://github.com/Yaquelqun/dotfiles/blob/master/tmux/tmux.conf">config</a> by mashing together a bunch of online finds so it's still very much a WIP
           </p>
 
-          <h2>tool version manager</h2>
+          <h2 id="tool-version-manager">tool version manager</h2>
           <p> Now that we have polyglot tool version managers, I figured i'd use <a href="https://mise.jdx.dev/">mise</a> since it seems like an easy-to-forget tool
           </p>
         </div>
@@ -120,5 +129,54 @@ echo "zsh operational"
       <p>&copy; Pro websites have a footer, but i dunno what to put here</p>
     </div>
   </footer>
+
+  <script>
+    // Smooth scrolling for sidebar links
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const navbarHeight = document.querySelector('.navbar').offsetHeight;
+          const targetPosition = targetElement.offsetTop - navbarHeight - 20;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Highlight active section on scroll
+    function updateActiveLink() {
+      const navbarHeight = document.querySelector('.navbar').offsetHeight;
+      const sections = document.querySelectorAll('.setup-content h2[id]');
+      const links = document.querySelectorAll('.sidebar-link');
+
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - navbarHeight - 100;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+    window.addEventListener('load', updateActiveLink);
+  </script>
 </body>
 </html>
