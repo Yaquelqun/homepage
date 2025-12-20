@@ -35,22 +35,81 @@
             </a>
           </p>
 
-          <h2>Shell Configuration</h2>
-          <p>My shell aliases for productivity:</p>
-          <pre><code># Git shortcuts
-alias gs='git status'
-alias ga='git add'
-alias gc='git commit'
-alias gp='git push'
-
-# Rails shortcuts
-alias be='bundle exec'
-alias rs='rails server'
-alias rc='rails console'</code></pre>
-
           <h2>Editor</h2>
-          <p>VS Code</p>
+          <p><a href="https://code.visualstudio.com/">VS Code</a></p>
           <p> All my setting are synchronized through github</p>
+          
+          <h2>Shell</h2>
+          <p>Currently working with <a href="https://ghostty.org/">ghostty</a> mainly because i really like the top-down accessible-anywhere quick terminal.
+            The config is pretty simple since i mostly use it to host tmux
+          </p>
+          <pre><code># Config
+theme = Catppuccin Mocha
+font-family = Fira Code # First ligature font i ever used so i'm sticking with it
+font-size = 19
+
+mouse-hide-while-typing = true
+macos-option-as-alt = true
+
+background-opacity=0.7
+background-blur-radius=5
+
+quick-terminal-size = 100%
+initial-window = false
+
+input = tmux\n
+
+keybind = global:ctrl+equal=toggle_quick_terminal
+
+</code></pre>
+
+          <p>The shell in itself is zsh since it's now native to mac. Since haven't looked up how to move the configuration to the .config folder, might as well
+            put it here
+          </p>
+          <pre><code>
+export PATH="/opt/homebrew/bin:$PATH"
+eval "$(~/.local/bin/mise activate)"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+export PATH="$PATH:/usr/local/bin/node"
+export FONTAWESOME_TOKEN={{FA_TOKEN}}
+export GITHUB_MCP_TOKEN={{GITHUB_TOKEN}}
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+
+# Carapace
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit 
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
+
+# aliases
+alias fucking="bundle exec"
+
+eval "$(starship init zsh)"
+
+echo "zsh operational"
+
+</code></pre>
+
+          <p> Terminal configuration is endless (and i haven't succumbed to vim-like editors yet :p) but some tools that i use and look cool are:
+            <ul>
+              <li> <a href="https://starship.rs/"> Starship </a>: Tool to provide info on branch name/folder versions etc</li>
+              <li> <a href="https://carapace.sh/"> Carapace </a>: Autocomplete library, not sure yet how to use it properly</li>
+              <li> <a href="https://github.com/ajeetdsouza/zoxide"> Zoxide </a>: Want to dig into this, seem plug and play</li>
+              <li> <a href="https://atuin.sh/"> Atuin </a>: Looks really nice as a way to store complicated commands (looking at you pg_restore)</li>
+            </ul>
+          </p>
+
+          <h2>tmux</h2>
+          <p>the panel/splitting logic of ghostty is kinda subpar + i can't use it in the quick terminal so <a href="https://github.com/tmux/tmux/wiki">tmux</a> allows me to have several terminals
+            without too much worry
+            I got the config by mashing together a bunch of online finds so it's still very much a WIP
+          </p>
+
+          <h2>tool version manager</h2>
+          <p> Now that we have polyglot tool version managers, I figured i'd use <a href="https://mise.jdx.dev/">mise</a> since it seems like an easy-to-forget tool
+          </p>
         </div>
       </div>
     </section>
