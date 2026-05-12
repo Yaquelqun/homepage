@@ -156,5 +156,22 @@
       <p>&copy; Pro websites have a footer, but i dunno what to put here</p>
     </div>
   </footer>
+
+  <script>
+    document.querySelectorAll('.tag-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelector('.tag-filter.active').classList.remove('active');
+        btn.classList.add('active');
+        var filter = btn.getAttribute('data-filter');
+        document.querySelectorAll('.figuring-card').forEach(function(card) {
+          if (filter === 'all' || card.getAttribute('data-tags').includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
