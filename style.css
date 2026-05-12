@@ -241,25 +241,36 @@ body {
   position: relative;
   overflow-x: auto;
   padding-bottom: 0.5rem;
+  padding-right: 1.25rem;
   margin-top: 1.5rem;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  top: 36px;
+  top: 40px;
   left: 0;
   right: 0;
   height: 2px;
   background: var(--ctp-surface1);
 }
 
+.timeline::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 35px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid var(--ctp-surface1);
+}
+
 .timeline-item {
-  flex: 1;
-  min-width: 140px;
+  flex: 0 0 auto;
   text-align: center;
   position: relative;
   padding: 0 0.75rem;
+  white-space: nowrap;
 }
 
 .timeline-dot {
@@ -267,7 +278,7 @@ body {
   height: 12px;
   border-radius: 50%;
   background: var(--ctp-mauve);
-  margin: 30px auto 1rem;
+  margin: 16px auto 0.75rem;
   position: relative;
   z-index: 1;
   box-shadow: 0 0 12px rgba(203, 166, 247, 0.3);
@@ -305,6 +316,7 @@ body {
   color: var(--ctp-overlay0);
   margin-top: 0.375rem;
   line-height: 1.4;
+  white-space: pre;
 }
 
 /* Currently Figuring Out — tag filters */
@@ -613,9 +625,8 @@ pre code {
 }
 
 @media (max-width: 768px) {
-  .navbar .container {
-    flex-direction: column;
-    gap: 0.75rem;
+  body {
+    background-attachment: scroll;
   }
 
   .nav-links {
@@ -640,16 +651,52 @@ pre code {
   }
 
   .timeline {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    flex-direction: column;
+    overflow-x: visible;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+  }
+
+  .timeline::before {
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .timeline::after {
+    right: auto;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    border-top: 10px solid var(--ctp-surface1);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: none;
   }
 
   .timeline-item {
-    min-width: 120px;
+    text-align: left;
+    min-width: unset;
+    padding: 0 0 1.5rem 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 0;
+    top: 0.125rem;
+    margin: 0;
   }
 
   .timeline-desc {
     display: none;
+  }
+
+  .contact {
+    padding: 1.5rem 1rem;
   }
 
   .setup-sidebar {
@@ -662,9 +709,42 @@ pre code {
 }
 
 @media (max-width: 480px) {
-  .nav-links {
+  .navbar .container {
     flex-direction: column;
-    align-items: center;
     gap: 0.5rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+  }
+
+  .hero {
+    padding: 2rem 0.75rem 1.5rem;
+  }
+
+  .hero-annotation {
+    font-size: 0.75rem;
+  }
+
+  .glass-card {
+    margin: 0 0.5rem;
+    padding: 1.25rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .section-gap {
+    padding-bottom: 2rem;
+  }
+
+  .contact {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
   }
 }
