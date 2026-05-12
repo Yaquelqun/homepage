@@ -366,19 +366,52 @@ body {
   font-size: 0.8125rem;
   color: var(--ctp-subtext0);
   margin-bottom: 0.75rem;
+  clear: right;
 }
 
-.progress-bar {
-  height: 4px;
-  background: var(--ctp-surface0);
-  border-radius: 2px;
-  margin-bottom: 1rem;
+.status-pill {
+  float: right;
+  margin-left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 99px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
-.progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  box-shadow: 0 0 12px rgba(203, 166, 247, 0.3);
+.status-pill::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.status-digging {
+  background: rgba(166, 227, 161, 0.15);
+  color: var(--ctp-green);
+}
+.status-digging::before {
+  background: var(--ctp-green);
+  box-shadow: 0 0 6px rgba(166, 227, 161, 0.6);
+}
+
+.status-dipping {
+  background: rgba(250, 179, 135, 0.15);
+  color: var(--ctp-peach);
+}
+.status-dipping::before {
+  background: var(--ctp-peach);
+}
+
+.status-gaveup {
+  background: rgba(108, 112, 134, 0.18);
+  color: var(--ctp-overlay0);
+}
+.status-gaveup::before {
+  background: var(--ctp-overlay0);
 }
 
 .card-tags {
