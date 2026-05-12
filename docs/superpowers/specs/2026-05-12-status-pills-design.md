@@ -16,9 +16,10 @@ Each card carries exactly one status.
 
 ## Position and layout
 
-- The pill sits absolutely positioned in the top-right corner of the card: `top: 0.85rem; right: 0.85rem`.
-- The card title (`.figuring-card h4`) gets `padding-right` reserved so the title never overlaps the pill. Use `padding-right: 8rem` (enough for the widest pill `gave up (for now)` plus a buffer).
-- Card description and tags below the title use the full card width unchanged — only `h4` needs the padding.
+- The pill uses `float: right` (not absolute positioning).
+- The card title (`.figuring-card h4`) has no special padding. The title text flows around the floated pill: first line is constrained to the width left of the pill, subsequent lines clear the float and use the full card width.
+- This means a short title shares its line with the pill (pill in top-right, title in top-left). A long title wraps — line 1 is beside the pill, line 2+ uses the full card width.
+- Card description and tags follow naturally; `.card-desc` should clear the float (`clear: right`) so it always starts at full width below the title.
 
 ## Visual treatment
 
@@ -32,9 +33,8 @@ Pill CSS:
 
 ```css
 .status-pill {
-  position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
+  float: right;
+  margin-left: 0.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -43,6 +43,10 @@ Pill CSS:
   border-radius: 99px;
   font-weight: 500;
   letter-spacing: 0.02em;
+}
+
+.figuring-card .card-desc {
+  clear: right;
 }
 
 .status-pill::before {
@@ -141,16 +145,15 @@ In `index.html`:
 ## CSS that gets added
 
 In `style.css`, near where `.figuring-card` is defined:
-- `.figuring-card { position: relative; }` (or confirm it's already present; if so, no change)
-- `.figuring-card h4 { padding-right: 8rem; }` — add the `padding-right` to the existing rule
-- `.status-pill` + the three status modifiers as shown above
+- `.status-pill` rule + the three status modifiers (`.status-digging`, `.status-dipping`, `.status-gaveup`) as shown above
+- Add `clear: right;` to the existing `.figuring-card .card-desc` rule so the description always starts below the pill float
 
 In `index.html`:
-- One `<span class="status-pill status-*">...</span>` as the first child of each `<div class="figuring-card">` (before `h4`).
+- One `<span class="status-pill status-*">...</span>` as the first child of each `<div class="figuring-card">` (before `h4`). The pill must come *first* in source order so the float anchors at the top of the card.
 
 ## Mobile
 
-The pill is absolutely positioned; on mobile (≤768px) the card has `grid-template-columns: 1fr` so it spans the viewport. The corner pill works at any card width. Title `padding-right: 8rem` remains workable on a 320px+ card (title gets 252px+ of width for the text). For very long titles, the title wraps under the pill — same behaviour as desktop.
+The pill uses `float: right` at all widths; on mobile (≤768px) the card spans the viewport (`grid-template-columns: 1fr`). The float behaviour is identical to desktop — short titles sit beside the pill, long titles wrap to a second line that uses full card width.
 
 No mobile-specific overrides needed.
 
