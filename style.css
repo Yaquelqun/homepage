@@ -202,15 +202,12 @@ body {
   line-height: 1.8;
 }
 
-/* About */
-.about {
-  display: flex;
-  justify-content: center;
-}
-
-.about .glass-card {
-  max-width: 640px;
-  width: 100%;
+/* Main page card sections — unified content column */
+.section-gap .glass-card {
+  max-width: 720px;
+  width: calc(100% - 4rem);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about-text p {
