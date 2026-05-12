@@ -246,11 +246,6 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.gl-line {
-  white-space: pre;
-  display: block;
-}
-
 .gl-commit {
   padding: 0.15rem 0;
   border-radius: 4px;
@@ -265,16 +260,51 @@ body {
   background: rgba(166, 227, 161, 0.05);
 }
 
-.gl-graph { color: var(--ctp-mauve); }
-.gl-graph.current { color: var(--ctp-green); }
-.gl-hash { color: var(--ctp-peach); }
-.gl-paren { color: var(--ctp-overlay0); }
-.gl-head { color: var(--ctp-green); font-weight: 600; }
-.gl-arrow { color: var(--ctp-overlay0); }
-.gl-tag { color: var(--ctp-maroon); }
-.gl-prefix { color: var(--ctp-blue); }
+.gl-subject-row,
+.gl-body-row,
+.gl-blank-row {
+  display: block;
+}
+
+.gl-subject-row,
+.gl-body-row {
+  position: relative;
+}
+
+.gl-subject-row { padding-left: 2ch; }
+.gl-body-row    { padding-left: 6ch; }
+
+.gl-subject-row::before,
+.gl-body-row::before {
+  position: absolute;
+  left: 0;
+  color: var(--ctp-mauve);
+}
+
+.gl-blank-row::before {
+  content: '|';
+  color: var(--ctp-mauve);
+}
+
+.gl-commit.current .gl-subject-row::before,
+.gl-commit.current .gl-body-row::before,
+.gl-commit.current .gl-blank-row::before {
+  color: var(--ctp-green);
+}
+
+.gl-subject-row::before { content: '*'; }
+.gl-body-row::before    { content: '|'; }
+
+.gl-hash    { color: var(--ctp-peach); }
+.gl-decoration       { color: var(--ctp-overlay0); }
+.gl-decoration::before { content: '('; }
+.gl-decoration::after  { content: ')'; }
+.gl-head    { color: var(--ctp-green); font-weight: 600; }
+.gl-arrow   { color: var(--ctp-overlay0); }
+.gl-tag     { color: var(--ctp-maroon); }
+.gl-prefix  { color: var(--ctp-blue); }
 .gl-subject { color: var(--ctp-text); }
-.gl-body { color: var(--ctp-subtext0); }
+.gl-body    { color: var(--ctp-subtext0); }
 
 /* Currently Figuring Out — tag filters */
 .tag-filters {
