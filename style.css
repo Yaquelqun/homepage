@@ -264,36 +264,44 @@ body {
 .gl-body-row,
 .gl-blank-row {
   display: block;
-}
-
-.gl-subject-row,
-.gl-body-row {
   position: relative;
 }
 
 .gl-subject-row { padding-left: 2ch; }
 .gl-body-row    { padding-left: 6ch; }
+.gl-blank-row   { min-height: 1.6em; }
 
-.gl-subject-row::before,
-.gl-body-row::before {
+/* commit marker — text glyph sits on the line */
+.gl-subject-row::before {
+  content: '*';
   position: absolute;
   left: 0;
   color: var(--ctp-mauve);
+  z-index: 1;
 }
 
-.gl-blank-row::before {
-  content: '|';
-  color: var(--ctp-mauve);
-}
-
-.gl-commit.current .gl-subject-row::before,
-.gl-commit.current .gl-body-row::before,
-.gl-commit.current .gl-blank-row::before {
+.gl-commit.current .gl-subject-row::before {
   color: var(--ctp-green);
 }
 
-.gl-subject-row::before { content: '*'; }
-.gl-body-row::before    { content: '|'; }
+/* continuous vertical line — drawn behind subject row and through body/blank rows */
+.gl-subject-row::after,
+.gl-body-row::before,
+.gl-blank-row::before {
+  content: '';
+  position: absolute;
+  left: calc(0.5ch - 1px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ctp-mauve);
+}
+
+.gl-commit.current .gl-subject-row::after,
+.gl-commit.current .gl-body-row::before,
+.gl-commit.current .gl-blank-row::before {
+  background: var(--ctp-green);
+}
 
 .gl-hash    { color: var(--ctp-peach); }
 .gl-decoration       { color: var(--ctp-overlay0); }
